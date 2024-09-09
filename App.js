@@ -1,4 +1,4 @@
-import SignIn from "./pages/Signin";
+import SignIn from "./screens/signin/Signin.jsx";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -8,7 +8,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen name="signin" component={SignIn} />
       </Stack.Navigator>
     </NavigationContainer>
   );

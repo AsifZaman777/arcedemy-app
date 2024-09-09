@@ -6,9 +6,15 @@ import {
   Button,
   TouchableOpacity,
   Animated,
-  StyleSheet,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+
+//assets
+import icon from "../../assets/icon.png";
+
+//styles
+import styles from "./signinStyle";
+import SigninButton from "../../components/signinButton/SigninButton";
 
 const Signin = () => {
   const navigation = useNavigation();
@@ -25,7 +31,7 @@ const Signin = () => {
   return (
     <View style={styles.container}>
       <Animated.Image
-        source={require("../assets/icon.png")}
+        source={icon}
         style={[styles.image, { opacity: fadeAnim }]}
       />
       <TextInput
@@ -38,42 +44,12 @@ const Signin = () => {
         style={styles.input}
         secureTextEntry
       />
-      <Button title="Sign In" onPress={() => navigation.navigate("Home")} />
+      <SigninButton />
       <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-        <Text style={styles.signupText}>New user? Sign up</Text>
+        <Text className="mt-1 font-semibold" >New user? Sign up</Text>
       </TouchableOpacity>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 20,
-  },
-  image: {
-    width: 200,
-    height: 200,
-    resizeMode: "contain",
-    marginBottom: 40,
-  },
-  input: {
-    width: "100%",
-    height: 50,
-    borderColor: "#ccc",
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    marginVertical: 10,
-  },
-  signupText: {
-    marginTop: 20,
-    color: "orange",
-    fontWeight: "bold",
-  },
-});
 
 export default Signin;
