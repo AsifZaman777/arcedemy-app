@@ -9,10 +9,10 @@ import {
 import { useNavigation } from "@react-navigation/native";
 
 // assets
-import icon from "../../assets/icon.png";
+import icon from "../assets/icon.png";
 
 // components
-import SigninButton from "../../components/signinButton/SigninButton";
+import SigninButton from "../components/signinButton/SigninButton";
 
 const Signin = () => {
   const navigation = useNavigation();
@@ -52,10 +52,10 @@ const Signin = () => {
 
       <TouchableOpacity
     
-        onPress={() => navigation.navigate("SignUp")}
+        onPress={() => navigation.navigate("Signup")}
         className="mt-20 relative md:mt-6 lg:mt-8 flex items-center"
       >
-        <Text className="text-neutral-800 font-bold text-base md:text-lg lg:text-xl">Not registered yet? <Text className="text-orange-500 font-bold text-base md:text-lg lg:text-xl">SignUp</Text> </Text>
+        <Text className="text-neutral-800 font-bold text-base md:text-lg lg:text-xl lg:mt-20">Not registered yet? <Text className="text-orange-500 font-bold text-base md:text-lg lg:text-xl">SignUp</Text> </Text>
       </TouchableOpacity>
     </View>
   );
