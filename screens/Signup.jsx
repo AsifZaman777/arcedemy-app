@@ -105,10 +105,10 @@ const Signup = () => {
           </TouchableOpacity>
         </View>
         <TouchableOpacity
-          className="w-full bg-orange-400 rounded-3xl py-4 md:py-5 lg:py-6 justify-center items-center shadow-lg"
+          className="w-full bg-orange-400 mt-10 rounded-3xl py-4 md:py-5 lg:py-6 justify-center items-center shadow-lg"
           onPress={handleSave}
         >
-          <Text className="text-white text-lg md:text-xl lg:text-2xl font-semibold">Save</Text>
+          <Text className="text-white text-lg md:text-xl lg:text-2xl font-semibold ">Save</Text>
         </TouchableOpacity>
       </View>
 
@@ -116,7 +116,7 @@ const Signup = () => {
       <SuccessDrawer 
         isVisible={isDrawerVisible} 
         iconName="check-circle" 
-        iconColor="white" 
+        iconColor="orange" 
         message="Signup Successful!" 
       />
     </View>

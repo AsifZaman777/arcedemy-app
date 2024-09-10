@@ -39,23 +39,29 @@ const Signin = () => {
       <View className="space-y-4 md:space-y-6 lg:space-y-8">
         <TextInput
           placeholder="Email"
-          className="w-full h-12 md:h-14 lg:h-16 border border-orange-500 rounded-lg px-4 md:px-6 lg:px-8"
+          style={{ fontSize: 18 }} // Set font size here
+          className="w-full h-14 md:h-16 lg:h-18 border border-orange-500 rounded-lg px-4 md:px-6 lg:px-8 mb-4"
           keyboardType="email-address"
         />
         <TextInput
           placeholder="Password"
-          className="w-full h-12 md:h-14 lg:h-16 border border-orange-500 rounded-lg px-4 md:px-6 lg:px-8"
+          style={{ fontSize: 18 }} // Set font size here
+          className="w-full h-14 md:h-16 lg:h-18 border border-orange-500 rounded-lg px-4 md:px-6 lg:px-8 mb-4"
           secureTextEntry
         />
         <SigninButton text="Sign In" navigateTo="Home" />
       </View>
 
       <TouchableOpacity
-    
         onPress={() => navigation.navigate("Signup")}
         className="mt-20 relative md:mt-6 lg:mt-8 flex items-center"
       >
-        <Text className="text-neutral-800 font-bold text-base md:text-lg lg:text-xl lg:mt-20">Not registered yet? <Text className="text-orange-500 font-bold text-base md:text-lg lg:text-xl">SignUp</Text> </Text>
+        <Text className="text-neutral-800 font-bold text-base md:text-lg lg:text-xl lg:mt-20">
+          Not registered yet?{" "}
+          <Text className="text-orange-500 font-bold text-base md:text-lg lg:text-xl">
+            SignUp
+          </Text>
+        </Text>
       </TouchableOpacity>
     </View>
   );
