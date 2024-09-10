@@ -116,7 +116,7 @@ const Signup = () => {
       <SuccessDrawer 
         isVisible={isDrawerVisible} 
         iconName="check-circle" 
-        iconColor="orange" 
+        iconColor="white" 
         message="Signup Successful!" 
       />
     </View>

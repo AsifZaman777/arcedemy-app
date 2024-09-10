@@ -11,11 +11,11 @@ const SuccessDrawer = ({ isVisible, iconName, iconColor, message }) => {
         duration={500}
         className="flex-1 justify-end"
       >
-        <View className="bg-white w-full h-1/3 items-center justify-center border-t border-gray-200 rounded-t-3xl p-8">
+        <View className="bg-orange-400 w-full h-1/3 items-center justify-center border-t border-orange-300 rounded-t-3xl p-8">
           <Animatable.View animation="bounceIn" duration={1000}>
             <Icon name={iconName} size={80} color={iconColor} />
           </Animatable.View>
-          <Animatable.Text animation="bounceIn" duration={1000} className="text-orange-400 text-2xl font-semibold mt-4">
+          <Animatable.Text animation="bounceIn" duration={1000} className="text-white text-2xl font-semibold mt-4">
             {message}
           </Animatable.Text>
         </View>
