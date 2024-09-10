@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import Icon from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
+import SuccessDrawer from '../components/SuccessDrawer'; // Import the new SuccessDrawer component
 
 const Signup = () => {
   const navigation = useNavigation();
@@ -111,25 +112,13 @@ const Signup = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Modal Drawer for Success */}
-      <Modal
-        visible={isDrawerVisible}
-        transparent={true}
-        animationType="slide"
-      >
-        <Animatable.View
-          animation="slideInUp"
-          duration={500}
-          className="flex-1 justify-end"
-        >
-          <View className="bg-white w-full h-1/3 items-center justify-center border-t border-gray-200 rounded-t-3xl p-8">
-            <Animatable.View animation="bounceIn" duration={1000}>
-              <Icon name="check-circle" size={80} color="orange" />
-            </Animatable.View>
-            <Animatable.Text animation="bounceIn" duration={1000} className="text-orange-400 text-2xl font-semibold mt-4">Signup Successful!</Animatable.Text>
-          </View>
-        </Animatable.View>
-      </Modal>
+      {/* SuccessDrawer component */}
+      <SuccessDrawer 
+        isVisible={isDrawerVisible} 
+        iconName="check-circle" 
+        iconColor="orange" 
+        message="Signup Successful!" 
+      />
     </View>
   );
 };

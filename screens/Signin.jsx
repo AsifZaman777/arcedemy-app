@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import icon from "../assets/icon.png";
 
 // components
-import SigninButton from "../components/signinButton/SigninButton";
+import SigninButton from "../components/SigninButton";
 
 const Signin = () => {
   const navigation = useNavigation();
