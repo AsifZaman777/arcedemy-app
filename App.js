@@ -7,8 +7,12 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="signin" component={SignIn} />
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false, //hides headers
+        }}
+      >
+        <Stack.Screen name="UserSignin" component={SignIn} />
       </Stack.Navigator>
     </NavigationContainer>
   );
