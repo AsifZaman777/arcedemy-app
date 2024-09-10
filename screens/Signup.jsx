@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
-import Icon from 'react-native-vector-icons/Feather'; // For back icon and eye toggle
+import Icon from 'react-native-vector-icons/Feather';
 
 const Signup = () => {
   const navigation = useNavigation();
@@ -20,8 +20,8 @@ const Signup = () => {
       quality: 1,
     });
 
-    if (!result.canceled) {
-      setImage(result.uri);
+    if (!result.canceled && result.assets && result.assets.length > 0) {
+      setImage(result.assets[0].uri); // set image uri from selected image
     }
   };
 
@@ -36,7 +36,7 @@ const Signup = () => {
           <Image source={{ uri: image }} className="w-40 h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-full" />
         ) : (
           <View className="w-40 h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-full border border-gray-300 justify-center items-center">
-            <Text className="text-gray-400 text-base md:text-lg lg:text-xl">Select Avatar</Text>
+            <Text className="text-gray-400 text-base md:text-lg lg:text-xl">Picture</Text>
           </View>
         )}
       </TouchableOpacity>
@@ -68,7 +68,7 @@ const Signup = () => {
             onPress={() => setShowPassword(!showPassword)}
             className="absolute right-4 top-5"
           >
-            <Icon name={showPassword ? 'eye-off' : 'eye'} size={20} color="gray" />
+            <Icon name={showPassword ? 'eye-off' : 'eye'} size={20} color="orange" />
           </TouchableOpacity>
         </View>
         <View className="relative mb-6">
@@ -83,7 +83,7 @@ const Signup = () => {
             onPress={() => setShowConfirmPassword(!showConfirmPassword)}
             className="absolute right-4 top-5"
           >
-            <Icon name={showConfirmPassword ? 'eye-off' : 'eye'} size={20} color="gray" />
+            <Icon name={showConfirmPassword ? 'eye-off' : 'eye'} size={20} color="orange" />
           </TouchableOpacity>
         </View>
         <TouchableOpacity className="w-full bg-orange-400 rounded-3xl py-4 md:py-5 lg:py-6 justify-center items-center shadow-lg">
