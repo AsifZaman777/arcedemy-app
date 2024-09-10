@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import Icon from 'react-native-vector-icons/Feather';
+import * as Animatable from 'react-native-animatable';
 
 const Signup = () => {
   const navigation = useNavigation();
@@ -11,6 +12,7 @@ const Signup = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [isDrawerVisible, setDrawerVisible] = useState(false);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -23,6 +25,16 @@ const Signup = () => {
     if (!result.canceled && result.assets && result.assets.length > 0) {
       setImage(result.assets[0].uri); // set image uri from selected image
     }
+  };
+
+  const handleSave = () => {
+    // Show the success drawer when save is clicked
+    setDrawerVisible(true);
+
+    // Hide the drawer after 3 seconds
+    setTimeout(() => {
+      setDrawerVisible(false);
+    }, 3000);
   };
 
   return (
@@ -44,21 +56,25 @@ const Signup = () => {
       <View className="w-full max-w-lg md:max-w-xl lg:max-w-2xl">
         <TextInput
           placeholder="Email"
+          style={{ fontSize: 18 }} // Increase font size here
           className="w-full h-14 md:h-16 lg:h-18 border border-orange-500 rounded-lg px-4 md:px-6 lg:px-8 mb-4"
           keyboardType="email-address"
         />
         <TextInput
           placeholder="Name"
+          style={{ fontSize: 18 }} // Increase font size here
           className="w-full h-14 md:h-16 lg:h-18 border border-orange-500 rounded-lg px-4 md:px-6 lg:px-8 mb-4"
         />
         <TextInput
           placeholder="Mobile"
+          style={{ fontSize: 18 }} // Increase font size here
           className="w-full h-14 md:h-16 lg:h-18 border border-orange-500 rounded-lg px-4 md:px-6 lg:px-8 mb-4"
           keyboardType="phone-pad"
         />
         <View className="relative mb-4">
           <TextInput
             placeholder="Password"
+            style={{ fontSize: 18 }} // Increase font size here
             className="w-full h-14 md:h-16 lg:h-18 border border-orange-500 rounded-lg px-4 md:px-6 lg:px-8"
             secureTextEntry={!showPassword}
             value={password}
@@ -68,12 +84,13 @@ const Signup = () => {
             onPress={() => setShowPassword(!showPassword)}
             className="absolute right-4 top-5"
           >
-            <Icon name={showPassword ? 'eye-off' : 'eye'} size={20} color="orange" />
+            <Icon name={showPassword ? 'eye' : 'eye-off'} size={20} color="orange" />
           </TouchableOpacity>
         </View>
         <View className="relative mb-6">
           <TextInput
             placeholder="Confirm Password"
+            style={{ fontSize: 18 }} // Increase font size here
             className="w-full h-14 md:h-16 lg:h-18 border border-orange-500 rounded-lg px-4 md:px-6 lg:px-8"
             secureTextEntry={!showConfirmPassword}
             value={confirmPassword}
@@ -83,13 +100,36 @@ const Signup = () => {
             onPress={() => setShowConfirmPassword(!showConfirmPassword)}
             className="absolute right-4 top-5"
           >
-            <Icon name={showConfirmPassword ? 'eye-off' : 'eye'} size={20} color="orange" />
+            <Icon name={showConfirmPassword ? 'eye' : 'eye-off'} size={20} color="orange" />
           </TouchableOpacity>
         </View>
-        <TouchableOpacity className="w-full bg-orange-400 rounded-3xl py-4 md:py-5 lg:py-6 justify-center items-center shadow-lg">
+        <TouchableOpacity
+          className="w-full bg-orange-400 rounded-3xl py-4 md:py-5 lg:py-6 justify-center items-center shadow-lg"
+          onPress={handleSave}
+        >
           <Text className="text-white text-lg md:text-xl lg:text-2xl font-semibold">Save</Text>
         </TouchableOpacity>
       </View>
+
+      {/* Modal Drawer for Success */}
+      <Modal
+        visible={isDrawerVisible}
+        transparent={true}
+        animationType="slide"
+      >
+        <Animatable.View
+          animation="slideInUp"
+          duration={500}
+          className="flex-1 justify-end"
+        >
+          <View className="bg-white w-full h-1/3 items-center justify-center border-t border-gray-200 rounded-t-3xl p-8">
+            <Animatable.View animation="bounceIn" duration={1000}>
+              <Icon name="check-circle" size={80} color="orange" />
+            </Animatable.View>
+            <Animatable.Text animation="bounceIn" duration={1000} className="text-orange-400 text-2xl font-semibold mt-4">Signup Successful!</Animatable.Text>
+          </View>
+        </Animatable.View>
+      </Modal>
     </View>
   );
 };
