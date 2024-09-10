@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, Modal } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import Icon from 'react-native-vector-icons/Feather';
@@ -11,9 +11,13 @@ const Signup = () => {
   const [image, setImage] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [mobile, setMobile] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isDrawerVisible, setDrawerVisible] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -28,14 +32,41 @@ const Signup = () => {
     }
   };
 
-  const handleSave = () => {
-    // Show the success drawer when save is clicked
-    setDrawerVisible(true);
+  const validateForm = () => {
+    const errors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const mobileRegex = /^\d{10}$/; // Assuming a 10-digit mobile number
 
-    // Hide the drawer after 3 seconds
-    setTimeout(() => {
-      setDrawerVisible(false);
-    }, 3000);
+    if (!emailRegex.test(email)) {
+      errors.email = 'Invalid email address';
+    }
+    if (!name.trim()) {
+      errors.name = 'Name is required';
+    }
+    if (!mobileRegex.test(mobile)) {
+      errors.mobile = 'Invalid mobile number';
+    }
+    if (password.length < 8) {
+      errors.password = 'Password must be at least 8 characters';
+    }
+    if (password !== confirmPassword) {
+      errors.confirmPassword = 'Passwords do not match';
+    }
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0; // Return true if no errors
+  };
+
+  const handleSave = () => {
+    if (validateForm()) {
+      // Show the success drawer when save is clicked
+      setDrawerVisible(true);
+
+      // Hide the drawer after 3 seconds
+      setTimeout(() => {
+        setDrawerVisible(false);
+      }, 3000);
+    }
   };
 
   return (
@@ -60,18 +91,45 @@ const Signup = () => {
           style={{ fontSize: 18 }} // Increase font size here
           className="w-full h-14 md:h-16 lg:h-18 border border-orange-500 rounded-lg px-4 md:px-6 lg:px-8 mb-4"
           keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
         />
+        {errors.email && (
+          <Animatable.View animation="fadeIn" duration={500} className="flex-row items-center mb-2">
+            <Icon name="alert-circle" size={20} color="red" />
+            <Text className="text-red-500 ml-2 text-base md:text-lg lg:text-xl">{errors.email}</Text>
+          </Animatable.View>
+        )}
+        
         <TextInput
           placeholder="Name"
           style={{ fontSize: 18 }} // Increase font size here
           className="w-full h-14 md:h-16 lg:h-18 border border-orange-500 rounded-lg px-4 md:px-6 lg:px-8 mb-4"
+          value={name}
+          onChangeText={setName}
         />
+        {errors.name && (
+          <Animatable.View animation="fadeIn" duration={500} className="flex-row items-center mb-2">
+            <Icon name="alert-circle" size={20} color="red" />
+            <Text className="text-red-500 ml-2 text-base md:text-lg lg:text-xl">{errors.name}</Text>
+          </Animatable.View>
+        )}
+        
         <TextInput
           placeholder="Mobile"
           style={{ fontSize: 18 }} // Increase font size here
           className="w-full h-14 md:h-16 lg:h-18 border border-orange-500 rounded-lg px-4 md:px-6 lg:px-8 mb-4"
           keyboardType="phone-pad"
+          value={mobile}
+          onChangeText={setMobile}
         />
+        {errors.mobile && (
+          <Animatable.View animation="fadeIn" duration={500} className="flex-row items-center mb-2">
+            <Icon name="alert-circle" size={20} color="red" />
+            <Text className="text-red-500 ml-2 text-base md:text-lg lg:text-xl">{errors.mobile}</Text>
+          </Animatable.View>
+        )}
+        
         <View className="relative mb-4">
           <TextInput
             placeholder="Password"
@@ -88,6 +146,13 @@ const Signup = () => {
             <Icon name={showPassword ? 'eye' : 'eye-off'} size={20} color="orange" />
           </TouchableOpacity>
         </View>
+        {errors.password && (
+          <Animatable.View animation="fadeIn" duration={500} className="flex-row items-center mb-2">
+            <Icon name="alert-circle" size={20} color="red" />
+            <Text className="text-red-500 ml-2 text-base md:text-lg lg:text-xl">{errors.password}</Text>
+          </Animatable.View>
+        )}
+        
         <View className="relative mb-6">
           <TextInput
             placeholder="Confirm Password"
@@ -104,8 +169,15 @@ const Signup = () => {
             <Icon name={showConfirmPassword ? 'eye' : 'eye-off'} size={20} color="orange" />
           </TouchableOpacity>
         </View>
+        {errors.confirmPassword && (
+          <Animatable.View animation="fadeIn" duration={500} className="flex-row items-center -mt-3 mb-5">
+            <Icon name="alert-circle" size={20} color="red" />
+            <Text className="text-red-500 ml-2 text-base md:text-lg lg:text-xl">{errors.confirmPassword}</Text>
+          </Animatable.View>
+        )}
+        
         <TouchableOpacity
-          className="w-full bg-orange-400 mt-10 rounded-3xl py-4 md:py-5 lg:py-6 justify-center items-center shadow-lg"
+          className="w-full bg-orange-400 rounded-3xl py-4 md:py-5 lg:py-6 justify-center items-center shadow-lg"
           onPress={handleSave}
         >
           <Text className="text-white text-lg md:text-xl lg:text-2xl font-semibold ">Save</Text>
