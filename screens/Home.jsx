@@ -1,92 +1,67 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StatusBar, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
-import * as Animatable from 'react-native-animatable';
-import SuccessDrawer from '../components/SuccessDrawer'; // Assuming SuccessDrawer is a component
 
 const Home = () => {
-  const [avatar, setAvatar] = useState(null); // State to store avatar (set a default image if needed)
-  const [name, setName] = useState('John Doe');
-  const [curriculum, setCurriculum] = useState('Cambridge');
-  const [level, setLevel] = useState('A2');
+  const [user, setUser] = useState({
+    name: 'John Doe',
+    curriculum: 'Cambridge',
+    level: 'A2',
+    avatar: null,
+  });
+
   const navigation = useNavigation();
 
+  // Style as per platform
+  const marginTopClass = Platform.OS === 'android' ? 'mt-0' : 'mt-10';
+
   return (
-    <View style={{ flex: 1, padding: 20 }}>
-      
-      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
-        <TouchableOpacity onPress={() => alert('Avatar clicked!')}>
-         
-            {avatar ? (
+    <View className="flex-1 bg-white">
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
+
+      {/* Top Bar */}
+      <View
+        className={`flex-row items-center justify-between bg-white p-5 shadow-lg ${marginTopClass}`}
+        style={{
+          elevation: 10, // Adds shadow on Android
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 2 }, // For iOS shadow
+          shadowOpacity: 0.2,
+          shadowRadius: 5,
+        }}
+      >
+        <View className="flex-row items-center">
+          <TouchableOpacity onPress={() => alert('Avatar clicked!')}>
+            {user.avatar ? (
               <Image
-                source={{ uri: avatar }} // Replace this URI with a local image if needed
-                style={{ width: 80, height: 80, borderRadius: 40 }}
+                source={{ uri: user.avatar }}
+                className="w-10 h-10 rounded-full"
               />
             ) : (
-              <View
-                style={{
-                  width: 80,
-                  height: 80,
-                  borderRadius: 40,
-                  backgroundColor: '#ccc',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <Icon name="user" size={24} color="#fff" />
+              <View className="w-10 h-10 rounded-full bg-gray-400 justify-center items-center">
+                <Icon name="user" size={20} color="#fff" />
               </View>
             )}
-        
+          </TouchableOpacity>
+
+          <View className="ml-4">
+            <Text className="text-base font-bold">{user.name}</Text>
+            <Text className="text-xs text-gray-600">Curriculum: {user.curriculum}</Text>
+            <Text className="text-xs text-gray-600">Level: {user.level}</Text>
+          </View>
+        </View>
+
+        {/* Three Dots Menu */}
+        <TouchableOpacity onPress={() => alert('Three dot menu clicked!')}>
+          <Icon name="more-vertical" size={24} color="black" />
         </TouchableOpacity>
-        <View style={{ marginLeft: 16 }}>
-          <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{name}</Text>
-          <Text style={{ fontSize: 14, color: 'gray' }}>Curriculum: {curriculum}</Text>
-          <Text style={{ fontSize: 14, color: 'gray' }}>Level: {level}</Text>
-        </View>
       </View>
 
-      {/* Placeholder Section: Cards/Progress Bars */}
-      <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginVertical: 20 }}>
-        <View
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: 20,
-            backgroundColor: '#f9c2ff',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text>Progress</Text>
-        </View>
-        <View
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: 20,
-            backgroundColor: '#90cdf4',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text>Progress</Text>
-        </View>
+      {/* Rest of the Content */}
+      <View className="p-5">
+        {/* Add your other components or content here */}
       </View>
-
-      {/* Success Drawer Button */}
-      <TouchableOpacity
-        style={{
-          backgroundColor: '#ff6347',
-          padding: 16,
-          borderRadius: 10,
-          alignItems: 'center',
-          marginTop: 20,
-        }}
-        onPress={() => navigation.openDrawer()} // Assuming this opens a drawer
-      >
-        <Text style={{ color: '#fff', fontSize: 16 }}>Open Success Drawer</Text>
-      </TouchableOpacity>
     </View>
   );
 };
