@@ -62,10 +62,11 @@ const Signup = () => {
       // Show the success drawer when save is clicked
       setDrawerVisible(true);
 
-      // Hide the drawer after 3 seconds
+      // Hide the drawer after 2 seconds
       setTimeout(() => {
         setDrawerVisible(false);
-      }, 3000);
+        navigation.navigate('Signin');
+      }, 2000);
     }
   };
 
@@ -92,7 +93,7 @@ const Signup = () => {
           className="w-full h-14 md:h-16 lg:h-18 border border-orange-500 rounded-lg px-4 md:px-6 lg:px-8 mb-4"
           keyboardType="email-address"
           value={email}
-          onChangeText={setEmail}
+          onChangeText={(text)=>setEmail(text.toLowerCase())}
         />
         {errors.email && (
           <Animatable.View animation="fadeIn" duration={500} className="flex-row items-center mb-2">
