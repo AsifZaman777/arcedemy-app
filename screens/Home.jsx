@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, StatusBar, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StatusBar, Platform, SafeAreaView, Dimensions, ScrollView, RefreshControl } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
+import { Card } from '@rneui/themed';
+import ProgressCard from '../components/ProgressCard';
+
+// Get screen dimensions
+const { width, height } = Dimensions.get('window');
+const isTablet = width >= 768;
 
 const Home = () => {
   const [user, setUser] = useState({
@@ -11,57 +17,87 @@ const Home = () => {
     avatar: null,
   });
 
+  const [refreshing, setRefreshing] = useState(false);
+
   const navigation = useNavigation();
 
-  // Style as per platform
-  const marginTopClass = Platform.OS === 'android' ? 'mt-0' : 'mt-10';
+  // Define dynamic styles for different screen sizes
+  const avatarSize = isTablet ? 80 : 40;
+  const smallTextSize = isTablet ? 'text-lg' : 'text-xs';
+  const headTextSize = isTablet ? 'text-2xl' : 'text-base';
+  const paddingSize = isTablet ? 'px-10 py-6' : 'px-5 py-4';
+
+  // Function to handle pull-to-refresh action
+  const onRefresh = () => {
+    setRefreshing(true);
+    // Simulate a network request, then stop the refreshing
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  };
 
   return (
-    <View className="flex-1 bg-white">
-      <StatusBar backgroundColor="white" barStyle="dark-content" />
+    <View className="flex-1 bg-slate-200">
+      {/* Set StatusBar appearance */}
+      <StatusBar
+        barStyle={Platform.OS === 'android' ? 'dark-content' : 'dark-content'}
+        backgroundColor={Platform.OS === 'android' ? 'white' : 'white'}
+      />
 
-      {/* Top Bar */}
-      <View
-        className={`flex-row items-center justify-between bg-white p-5 shadow-lg ${marginTopClass}`}
-        style={{
-          elevation: 10, // Adds shadow on Android
-          shadowColor: '#000',
-          shadowOffset: { width: 0, height: 2 }, // For iOS shadow
-          shadowOpacity: 0.2,
-          shadowRadius: 5,
-        }}
-      >
-        <View className="flex-row items-center">
-          <TouchableOpacity onPress={() => alert('Avatar clicked!')}>
-            {user.avatar ? (
-              <Image
-                source={{ uri: user.avatar }}
-                className="w-10 h-10 rounded-full"
-              />
-            ) : (
-              <View className="w-10 h-10 rounded-full bg-gray-400 justify-center items-center">
-                <Icon name="user" size={20} color="#fff" />
-              </View>
-            )}
-          </TouchableOpacity>
+      {/* SafeAreaView for iOS status bar padding */}
+      <SafeAreaView className="bg-white">
+        {/* Top Bar */}
+        <View
+          className={`flex-row items-center justify-between bg-white ${paddingSize}`}
+          style={{
+            elevation: 10, // Adds shadow on Android
+            shadowColor: 'gray',
+            shadowOffset: { width: 0, height: 2 }, // For iOS shadow
+            shadowOpacity: 0.1,
+            shadowRadius: 10,
+          }}
+        >
+          <View className="flex-row items-center">
+            <TouchableOpacity onPress={() => alert('Avatar clicked!')}>
+              {user.avatar ? (
+                <Image
+                  source={{ uri: user.avatar }}
+                  style={{ width: avatarSize, height: avatarSize }}
+                  className="rounded-full"
+                />
+              ) : (
+                <View
+                  style={{ width: avatarSize, height: avatarSize }}
+                  className="rounded-full bg-orange-400 justify-center items-center"
+                >
+                  <Icon name="user" size={avatarSize / 2} color="#fff" />
+                </View>
+              )}
+            </TouchableOpacity>
 
-          <View className="ml-4">
-            <Text className="text-base font-bold">{user.name}</Text>
-            <Text className="text-xs text-gray-600">Curriculum: {user.curriculum}</Text>
-            <Text className="text-xs text-gray-600">Level: {user.level}</Text>
+            <View className="ml-4">
+              <Text className={`text-orange-500 font-bold ${headTextSize}`}>{user.name}</Text>
+              <Text className={`text-gray-600 ${smallTextSize}`}>Curriculum: {user.curriculum}</Text>
+              <Text className={`text-gray-600 ${smallTextSize}`}>Level: {user.level}</Text>
+            </View>
           </View>
+
+          {/* Three Dots Menu */}
+          <TouchableOpacity onPress={() => alert('Three dot menu clicked!')}>
+            <Icon name="more-vertical" size={isTablet ? 32 : 24} color="black" />
+          </TouchableOpacity>
         </View>
+      </SafeAreaView>
 
-        {/* Three Dots Menu */}
-        <TouchableOpacity onPress={() => alert('Three dot menu clicked!')}>
-          <Icon name="more-vertical" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
-
-      {/* Rest of the Content */}
-      <View className="p-5">
-        {/* Add your other components or content here */}
-      </View>
+      {/* Scrollable Content with Pull-to-Refresh */}
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }} // Make sure content stretches to fill the ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+      <ProgressCard />
+      </ScrollView>
     </View>
   );
 };
