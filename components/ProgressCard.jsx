@@ -74,10 +74,10 @@ const ProgressCard = () => {
 
           {/* Right section: Single progress circle */}
           <View style={{ flex: 1, alignItems: 'flex-end' }}>
-            <View style={{ position: 'relative', width: 150, height: 180 }}>
+            <View style={{ position: 'relative', width: isTablet? 300:150, height: isTablet? 280:180 }}>
               <AnimatedCircularProgress
-                size={130}
-                width={5}
+                size={isTablet? 230 : 130}
+                width={isTablet? 10 : 5}
                 fill={dailyProgress[0].percentile} // Physics
                 tintColor={dailyProgress[0].color}
                 backgroundColor="#e0e0e0"
@@ -86,8 +86,8 @@ const ProgressCard = () => {
               {/* Chemistry progress */}
               <View style={{ position: 'absolute', top: 10, left: 10 }}>
                 <AnimatedCircularProgress
-                  size={110}
-                  width={5}
+                  size={isTablet? 210 : 110}
+                  width={isTablet? 10 : 5}
                   fill={dailyProgress[1].percentile} // Chemistry
                   tintColor={dailyProgress[1].color}
                   backgroundColor="#e0e0e0"
@@ -97,8 +97,8 @@ const ProgressCard = () => {
               {/* Mathematics progress */}
               <View style={{ position: 'absolute', top: 20, left: 20 }}>
                 <AnimatedCircularProgress
-                  size={90}
-                  width={5}
+                  size={isTablet? 190 : 90}
+                  width={isTablet? 10 : 5}
                   fill={dailyProgress[2].percentile} // Mathematics
                   tintColor={dailyProgress[2].color}
                   backgroundColor="#e0e0e0"
