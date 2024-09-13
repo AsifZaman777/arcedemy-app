@@ -9,17 +9,18 @@ const { width } = Dimensions.get('window');
 const isTablet = width >= 768;
 
 // Define variables for padding and text sizes based on screen size
-const paddingVertical = isTablet ? 'pt-8' : 'pt-4';
-const paddingHorizontal = isTablet ? 'p-20' : 'p-5';
+const paddingVertical = isTablet ? 'pt-12' : 'pt-4';
+const paddingHorizontal = isTablet ? 'p-16' : 'p-5';
 
-const headerTextSize = isTablet ? 'text-3xl' : 'text-lg';
-const subHeaderTextSize = isTablet ? 'text-2xl' : 'text-base';
-const smallTextSize = isTablet ? 'text-lg' : 'text-sm';
+const headerTextSize = isTablet ? 'text-4xl' : 'text-xl';
+const subHeaderTextSize = isTablet ? 'text-3xl' : 'text-base';
+const smallTextSize = isTablet ? 'text-xl' : 'text-sm';
+const mbResponsive = isTablet ? 'mb-5' : 'mb-3';
 
-// Define daily progress object with subjects, percentile, and colors
+//daily progress objects
 const dailyProgress = [
   { subject: 'Physics', percentile: 90, color: 'red' },
-  { subject: 'Chemistry', percentile: 88, color: 'yellow' },
+  { subject: 'Chemistry', percentile: 88, color: 'lime' },
   { subject: 'Mathematics', percentile: 95, color: 'green' },
 ];
 
@@ -32,43 +33,86 @@ const ProgressCard = () => {
         containerStyle={{
           borderRadius: 15,
           elevation: 10, // Android shadow
-          shadowColor: 'gray', // iOS shadow color
-          shadowOffset: { width: 0, height: 2 }, // iOS shadow offset
-          shadowOpacity: 0.1, // iOS shadow opacity
-          shadowRadius: 10, // iOS shadow radius
+          //ios props
+          shadowColor: 'gray', 
+          shadowOffset: { width: 0, height: 2 }, 
+          shadowOpacity: 0.1,
+          shadowRadius: 10, 
         }}
       >
         <View className="flex-row items-center justify-between">
-          <Text className={`${headerTextSize} font-bold text-neutral-800`}>Daily Progress</Text>
+          <Text className={`${headerTextSize} font-bold text-neutral-800 ${mbResponsive}`}>Daily Progress</Text>
         </View>
 
-        {dailyProgress.map((item, index) => (
-          <View className="flex-row items-center mt-4" key={index}>
-            <View className="flex-1">
-              <Text className={`${subHeaderTextSize} font-semibold text-neutral-700`}>
-                {item.subject}
-              </Text>
-              <Text className={`${smallTextSize} text-neutral-500`}>
-                {item.percentile}%
-              </Text>
-            </View>
-
-            {/* Circular Progress Bar */}
-            <AnimatedCircularProgress
-              size={70}
-              width={5}
-              fill={item.percentile} // Use the percentile value as the fill percentage
-              tintColor={item.color} // Color based on subject
-              backgroundColor="#e0e0e0"
-            >
-              {(fill) => (
-                <Text style={{ fontSize: isTablet ? 18 : 14 }}>
-                  {Math.round(fill)}%
-                </Text>
-              )}
-            </AnimatedCircularProgress>
+        <View className="flex-row items-center justify-between mt-4">
+          {/* Left section: List of subjects */}
+          <View className="flex-1">
+            {dailyProgress.map((item, index) => (
+              <View className={`flex-row items-center mb-4 ${mbResponsive}`} key={index}>
+                {/* Color square */}
+                <View
+                className={isTablet ? '-mt-6' : '-mt-4'}
+                  style={{
+                    width: isTablet ? 16 : 10,
+                    height: isTablet ? 16 : 10,
+                    backgroundColor: item.color,
+                    marginRight: 10,
+                    borderRadius: isTablet ? 8 : 5,
+                  }}
+                />
+                <View>
+                  <Text className={`${subHeaderTextSize} font-semibold text-neutral-700`}>
+                    {item.subject}
+                  </Text>
+                  <Text className={`${smallTextSize} text-neutral-500`}>
+                    {item.percentile}%
+                  </Text>
+                </View>
+              </View>
+            ))}
           </View>
-        ))}
+
+          {/* Right section: Single progress circle */}
+          <View style={{ flex: 1, alignItems: 'flex-end' }}>
+            <View style={{ position: 'relative', width: 150, height: 180 }}>
+              <AnimatedCircularProgress
+                size={130}
+                width={5}
+                fill={dailyProgress[0].percentile} // Physics
+                tintColor={dailyProgress[0].color}
+                backgroundColor="#e0e0e0"
+              />
+
+              {/* Chemistry progress */}
+              <View style={{ position: 'absolute', top: 10, left: 10 }}>
+                <AnimatedCircularProgress
+                  size={110}
+                  width={5}
+                  fill={dailyProgress[1].percentile} // Chemistry
+                  tintColor={dailyProgress[1].color}
+                  backgroundColor="#e0e0e0"
+                />
+              </View>
+
+              {/* Mathematics progress */}
+              <View style={{ position: 'absolute', top: 20, left: 20 }}>
+                <AnimatedCircularProgress
+                  size={90}
+                  width={5}
+                  fill={dailyProgress[2].percentile} // Mathematics
+                  tintColor={dailyProgress[2].color}
+                  backgroundColor="#e0e0e0"
+                >
+                  {(fill) => (
+                    <Text className="text-neutral-500" style={{ fontSize: isTablet ? 18 : 14, textAlign: 'center', fontWeight: 'normal' }}>
+                      Avg = {Math.round((dailyProgress[0].percentile + dailyProgress[1].percentile + dailyProgress[2].percentile) / 3)}%
+                    </Text>
+                  )}
+                </AnimatedCircularProgress>
+              </View>
+            </View>
+          </View>
+        </View>
       </Card>
     </View>
   );
