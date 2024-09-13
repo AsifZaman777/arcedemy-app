@@ -23,7 +23,7 @@ const isTablet = width >= 768;
 
 const Home = () => {
   const [user, setUser] = useState({
-    name: "John Doe",
+    name: "Asif Zaman",
     curriculum: "Cambridge",
     level: "A2",
     avatar: asif,
