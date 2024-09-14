@@ -16,6 +16,7 @@ import Icon from "react-native-vector-icons/Feather";
 import { Card } from "@rneui/themed";
 import ProgressCard from "../components/ProgressCard";
 import asif from "../assets/asif.png";
+import AnalyticsCard from "../components/AnalyticsCard";
 
 // Get screen dimensions
 const { width, height } = Dimensions.get("window");
@@ -113,12 +114,20 @@ const Home = () => {
 
       {/* Scrollable Content with Pull-to-Refresh */}
       <ScrollView
-        contentContainerStyle={{ flexGrow: 5 }} // Make sure content stretches to fill the ScrollView
+        contentContainerStyle={{ flexGrow: 1 }} // Make sure content stretches to fill the ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <ProgressCard />
+        <View style={{ marginBottom: isTablet ? -80 : -20 }}>
+          <ProgressCard />
+        </View>
+
+        <View style={{ marginBottom: isTablet ? -80 : -20 }}>
+          <AnalyticsCard />
+        </View>
+
+
       </ScrollView>
     </View>
   );
