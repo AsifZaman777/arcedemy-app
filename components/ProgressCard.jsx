@@ -10,13 +10,15 @@ const { width } = Dimensions.get('window');
 const isTablet = width >= 768;
 
 // Define variables for padding and text sizes based on screen size
-const paddingVertical = isTablet ? 'pt-12' : 'pt-4';
+const paddingVertical = isTablet ? 'pt-14' : 'pt-4';
 const paddingHorizontal = isTablet ? 'p-24' : 'p-5';
 
 const headerTextSize = isTablet ? 'text-4xl' : 'text-xl';
 const subHeaderTextSize = isTablet ? 'text-3xl' : 'text-base';
 const smallTextSize = isTablet ? 'text-xl' : 'text-sm';
-const mbResponsive = isTablet ? 'mb-5' : 'mb-3';
+const mbResponsive = isTablet ? 'mb-4' : 'mb-3';
+const mlResponsive = isTablet ? 'ml-4' : 'ml-1';
+const mtResponsive = isTablet ? 'mt-5' : 'mt-2';
 
 // daily progress objects
 const dailyProgress = [
@@ -42,10 +44,10 @@ const ProgressCard = () => {
         }}
       >
         <View className="flex-row items-center justify-between">
-          <Text className={`${headerTextSize} font-bold text-neutral-800 ${mbResponsive}`}>Daily Progress</Text>
+          <Text className={`${headerTextSize} font-bold text-neutral-800 ${mtResponsive} ${mlResponsive}`}>Daily Progress</Text>
         </View>
 
-        <View className="flex-row items-center justify-between mt-4">
+        <View className={`flex-row items-center justify-between mt-4 ${mlResponsive}`}>
           {/* Left section: List of subjects */}
           <View className="flex-1">
             {dailyProgress.map((item, index) => (
