@@ -14,9 +14,14 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Feather";
 import { Card } from "@rneui/themed";
-import ProgressCard from "../components/HomeScreenComp/ProgressCard";
+
+//assets
 import asif from "../assets/asif.png";
+
+//components
+import ProgressCard from "../components/HomeScreenComp/ProgressCard";
 import AnalyticsCard from "../components/HomeScreenComp/AnalyticsCard";
+import PanelOptionCard from "../components/HomeScreenComp/PanelOptionCard";
 
 // Get screen dimensions
 const { width, height } = Dimensions.get("window");
@@ -125,6 +130,10 @@ const Home = () => {
 
         <View style={{ marginBottom: isTablet ? -80 : -20 }}>
           <AnalyticsCard />
+        </View>
+
+        <View style={{ marginBottom: isTablet ? -80 : -20 }}>
+            <PanelOptionCard />
         </View>
 
 
