@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import Icon from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
-import SuccessDrawer from '../components/SuccessDrawer'; // Import the new SuccessDrawer component
+import SuccessDrawer from '../components/SignupScreenComp/SuccessDrawer'; // Import the new SuccessDrawer component
 
 const Signup = () => {
   const navigation = useNavigation();

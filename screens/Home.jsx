@@ -14,9 +14,9 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Feather";
 import { Card } from "@rneui/themed";
-import ProgressCard from "../components/ProgressCard";
+import ProgressCard from "../components/HomeScreenComp/ProgressCard";
 import asif from "../assets/asif.png";
-import AnalyticsCard from "../components/AnalyticsCard";
+import AnalyticsCard from "../components/HomeScreenComp/AnalyticsCard";
 
 // Get screen dimensions
 const { width, height } = Dimensions.get("window");
