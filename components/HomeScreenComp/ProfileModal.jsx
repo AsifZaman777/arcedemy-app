@@ -81,7 +81,7 @@ const ProfileModal = ({ isVisible, onClose, user }) => {
               <Text style={{ fontSize: headerTextSize }}>
                 Perks and Benefits
               </Text>
-              <Icon name="chevron-right" size={20} color="gray" />
+              <Icon name="chevron-right" size={20} color="orange" />
             </View>
             <Text style={{ fontSize: smallTextSize, color: "gray" }}>
               Learn like a king
@@ -107,7 +107,7 @@ const ProfileModal = ({ isVisible, onClose, user }) => {
               <Text style={{ fontSize: headerTextSize }}>
                 Help and Feedback
               </Text>
-              <Icon name="chevron-right" size={20} color="gray" />
+              <Icon name="chevron-right" size={20} color="orange" />
             </View>
             <Text style={{ fontSize: smallTextSize, color: "gray" }}>
               Ask for any query and support
@@ -131,7 +131,7 @@ const ProfileModal = ({ isVisible, onClose, user }) => {
               }}
             >
               <Text style={{ fontSize: headerTextSize }}>Profile Update</Text>
-              <Icon name="chevron-right" size={20} color="gray" />
+              <Icon name="chevron-right" size={20} color="orange" />
             </View>
             <Text style={{ fontSize: smallTextSize, color: "gray" }}>
               Update your information
