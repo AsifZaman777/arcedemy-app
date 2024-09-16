@@ -1,81 +1,157 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
-  View, Text, TouchableOpacity, Image, StatusBar, Platform, SafeAreaView, Dimensions, ScrollView, RefreshControl,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
-import ProgressCard from '../components/HomeScreenComp/ProgressCard';
-import AnalyticsCard from '../components/HomeScreenComp/AnalyticsCard';
-import PanelOptionCard from '../components/HomeScreenComp/PanelOptionCard';
-import ProfileModal from '../components/HomeScreenComp/ProfileModal'; // Import the ProfileModal component
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StatusBar,
+  Platform,
+  SafeAreaView,
+  Dimensions,
+  ScrollView,
+  RefreshControl,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/Feather";
+import { Card } from "@rneui/themed";
 
-import asif from '../assets/asif.png'; // User's avatar
+//assets
+import asif from "../assets/asif.png";
 
-const { width } = Dimensions.get('window');
+//components
+import ProgressCard from "../components/HomeScreenComp/ProgressCard";
+import AnalyticsCard from "../components/HomeScreenComp/AnalyticsCard";
+import PanelOptionCard from "../components/HomeScreenComp/PanelOptionCard";
+import ProfileModal from "../components/HomeScreenComp/ProfileModal";
+
+// Get screen dimensions
+const { width, height } = Dimensions.get("window");
 const isTablet = width >= 768;
 
 const Home = () => {
   const [user, setUser] = useState({
-    name: 'Asif Zaman',
-    curriculum: 'Cambridge',
-    level: 'A2',
+    name: "Asif Zaman",
+    curriculum: "Cambridge",
+    level: "A2",
     avatar: asif,
   });
 
   const [refreshing, setRefreshing] = useState(false);
-  const [isProfileModalVisible, setProfileModalVisible] = useState(false); // State for controlling modal visibility
+  const [isProfileModalVisible, setProfileModalVisible] = useState(false); // State for profile modal visibility
 
+  const navigation = useNavigation();
+
+  // Define dynamic styles for different screen sizes
+  const avatarSize = isTablet ? 80 : 40;
+  const smallTextSize = isTablet ? "text-lg" : "text-xs";
+  const headTextSize = isTablet ? "text-2xl" : "text-base";
+  const paddingSize = isTablet ? "px-10 py-6" : "px-5 py-4";
+
+  // Function to handle pull-to-refresh action
   const onRefresh = () => {
     setRefreshing(true);
+    // Simulate a network request, then stop the refreshing
     setTimeout(() => {
       setRefreshing(false);
     }, 2000);
   };
 
+  // Function to toggle Profile Modal visibility
+  const toggleProfileModal = () => {
+    setProfileModalVisible(!isProfileModalVisible);
+  };
+
   return (
     <View className="flex-1 bg-slate-200">
-      <StatusBar barStyle={Platform.OS === 'android' ? 'dark-content' : 'dark-content'} backgroundColor={Platform.OS === 'android' ? 'white' : 'white'} />
+      {/* Set StatusBar appearance */}
+      <StatusBar
+        barStyle={Platform.OS === "android" ? "dark-content" : "dark-content"}
+        backgroundColor={Platform.OS === "android" ? "white" : "white"}
+      />
+
+      {/* SafeAreaView for iOS status bar padding */}
       <SafeAreaView className="bg-white">
-        <View className={`flex-row items-center justify-between bg-white px-5 py-4`} style={{ elevation: 10, shadowColor: 'gray', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 10 }}>
+        {/* Top Bar */}
+        <View
+          className={`flex-row items-center justify-between bg-white ${paddingSize}`}
+          style={{
+            elevation: 10, // Adds shadow on Android
+            shadowColor: "gray",
+            shadowOffset: { width: 0, height: 2 }, // For iOS shadow
+            shadowOpacity: 0.1,
+            shadowRadius: 10,
+          }}
+        >
           <View className="flex-row items-center">
-            <TouchableOpacity onPress={() => setProfileModalVisible(true)}>
+            <TouchableOpacity onPress={toggleProfileModal}>
               {user.avatar ? (
-                <Image source={user.avatar} style={{ width: 40, height: 40 }} className="rounded-full" />
+                <Image
+                  source={user.avatar}
+                  style={{ width: avatarSize, height: avatarSize }}
+                  className="rounded-full"
+                />
               ) : (
-                <View style={{ width: 40, height: 40 }} className="rounded-full bg-orange-400 justify-center items-center">
-                  <Icon name="user" size={20} color="#fff" />
+                <View
+                  style={{ width: avatarSize, height: avatarSize }}
+                  className="rounded-full bg-orange-400 justify-center items-center"
+                >
+                  <Icon name="user" size={avatarSize / 2} color="#fff" />
                 </View>
               )}
             </TouchableOpacity>
 
             <View className="ml-4">
-              <Text className={`text-orange-500 font-bold text-base`}>{user.name}</Text>
-              <Text className={`text-gray-600 text-xs`}>Curriculum: {user.curriculum}</Text>
-              <Text className={`text-gray-600 text-xs`}>Level: {user.level}</Text>
+              <Text className={`text-orange-500 font-bold ${headTextSize}`}>
+                {user.name}
+              </Text>
+              <Text className={`text-gray-600 ${smallTextSize}`}>
+                Curriculum: {user.curriculum}
+              </Text>
+              <Text className={`text-gray-600 ${smallTextSize}`}>
+                Level: {user.level}
+              </Text>
             </View>
           </View>
-          <TouchableOpacity onPress={() => alert('Three dot menu clicked!')}>
-            <Icon name="more-vertical" size={24} color="black" />
+
+          {/* Three Dots Menu */}
+          <TouchableOpacity onPress={toggleProfileModal}>
+            <Icon
+              name="more-vertical"
+              size={isTablet ? 32 : 24}
+              color="black"
+            />
           </TouchableOpacity>
         </View>
       </SafeAreaView>
 
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-        <View style={{ marginBottom: -20 }}>
+      {/* Scrollable Content with Pull-to-Refresh */}
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }} // Make sure content stretches to fill the ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        <View style={{ marginBottom: isTablet ? -80 : -20 }}>
           <ProgressCard />
         </View>
-        <View style={{ marginBottom: -20 }}>
+
+        <View style={{ marginBottom: isTablet ? -80 : -20 }}>
           <AnalyticsCard />
         </View>
-        <View style={{ marginBottom: -20 }}>
-          <PanelOptionCard />
+
+        <View style={{ marginBottom: isTablet ? -80 : -20 }}>
+            <PanelOptionCard />
         </View>
 
-
-
+        <View style={{ marginBottom: isTablet ? 80 : 60 }}></View>
       </ScrollView>
 
-      {/* Profile Modal */}
-      <ProfileModal isVisible={isProfileModalVisible} onClose={() => setProfileModalVisible(false)} user={user} />
+      {/* Profile Modal and prop drill */}
+      <ProfileModal 
+        isVisible={isProfileModalVisible} 
+        onClose={toggleProfileModal} 
+        user={user} 
+      />
     </View>
   );
 };
