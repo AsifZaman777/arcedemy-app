@@ -10,7 +10,7 @@ const isTablet = width >= 768;
 
 // Define dynamic Tailwind classes based on screen size
 const headerTextSize = isTablet ? "text-4xl" : "text-xl";
-const subHeaderTextSize = isTablet ? "text-xl" : "text-sm";
+const subHeaderTextSize = isTablet ? "text-2xl" : "text-sm";
 const smallTextSize = isTablet ? "text-lg" : "text-sm";
 const responsiveAvatarSize = isTablet ? 100 : 50;
 const responsiveBorderRadius = isTablet ? 50 : 25;
@@ -68,7 +68,7 @@ const ProfileModal = ({ isVisible, onClose, user }) => {
               </Text>
               <Icon name="chevron-right" size={isTablet?30:20} color="orange" />
             </View>
-            <Text className={`text-gray-500 ${smallTextSize}`}>
+            <Text className={`text-gray-500 ${subHeaderTextSize}`}>
               Ask for any query and support
             </Text>
           </Card>
@@ -82,7 +82,7 @@ const ProfileModal = ({ isVisible, onClose, user }) => {
               </Text>
               <Icon name="chevron-right" size={isTablet?30:20} color="orange" />
             </View>
-            <Text className={`text-gray-500 ${smallTextSize}`}>
+            <Text className={`text-gray-500 ${subHeaderTextSize}`}>
               Update your information
             </Text>
           </Card>
@@ -99,7 +99,7 @@ const ProfileModal = ({ isVisible, onClose, user }) => {
 
         {/* Terms and Conditions */}
         <TouchableOpacity onPress={() => alert("Terms and Conditions clicked!")}>
-          <Text className={`text-center text-orange-500 mt-5 ${subHeaderTextSize} font-bold`}>
+          <Text className={`text-center text-orange-500 ${isTablet?'mt-5':'mt-3'} ${subHeaderTextSize} font-bold`}>
             Terms and conditions
           </Text>
         </TouchableOpacity>
