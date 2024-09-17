@@ -8,10 +8,14 @@ import Icon from "react-native-vector-icons/FontAwesome";
 const { width } = Dimensions.get("window");
 const isTablet = width >= 768;
 
-// Define dynamic text sizes based on screen size
-const headerTextSize = isTablet ? 24 : 18;
-const subHeaderTextSize = isTablet ? 20 : 14;
-const smallTextSize = isTablet ? 20 : 16;
+// Define dynamic Tailwind classes based on screen size
+const headerTextSize = isTablet ? "text-4xl" : "text-xl";
+const subHeaderTextSize = isTablet ? "text-xl" : "text-sm";
+const smallTextSize = isTablet ? "text-lg" : "text-sm";
+const responsiveAvatarSize = isTablet ? 100 : 50;
+const responsiveBorderRadius = isTablet ? 50 : 25;
+const responsivePadding = isTablet ? "p-8" : "p-4";
+const responsiveMb = isTablet ? "mb-5" : "mb-5";
 
 const ProfileModal = ({ isVisible, onClose, user }) => {
   return (
@@ -21,119 +25,64 @@ const ProfileModal = ({ isVisible, onClose, user }) => {
       animationIn="slideInUp"
       animationOut="slideOutDown"
     >
-      <View
-        style={{
-          backgroundColor: "white",
-          borderRadius: 20,
-          paddingVertical: isTablet ? 30 : 20,
-          paddingHorizontal: isTablet ? 40 : 20,
-          elevation: 10,
-          shadowColor: "black",
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.2,
-          shadowRadius: 10,
-        }}
-      >
+      <View className={`bg-white rounded-2xl shadow-lg ${responsivePadding}`}>
         {/* Header with Avatar and Close Button */}
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: 20,
-          }}
-        >
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <View className={`flex-row justify-between items-center mb-5`}>
+          <View className="flex-row items-center">
             <Image
               source={user.avatar}
-              style={{ width: 50, height: 50, borderRadius: 25 }}
+              style={{ width: responsiveAvatarSize, height: responsiveAvatarSize, borderRadius: responsiveBorderRadius }}
             />
-            <View style={{ marginLeft: 10 }}>
-              <Text style={{ fontWeight: "bold", fontSize: headerTextSize }}>
-                {user.name}
-              </Text>
-              <Text style={{ color: "gray", fontSize: subHeaderTextSize }}>
+            <View className="ml-4">
+              <Text className={`font-bold ${headerTextSize}`}>{user.name}</Text>
+              <Text className={`text-gray-500 ${subHeaderTextSize}`}>
                 {user.curriculum} | {user.level}
               </Text>
             </View>
           </View>
           <TouchableOpacity onPress={onClose}>
-            <Icon name="times" size={24} color="black" />
+            <Icon name="times" size={isTablet?48:24} color="red" />
           </TouchableOpacity>
         </View>
 
         {/* Option Cards */}
         <TouchableOpacity>
-          <Card
-            containerStyle={{
-              borderRadius: 10,
-              backgroundColor: "#f3f4f6",
-              marginBottom: 15,
-            }}
-          >
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Text style={{ fontSize: headerTextSize }}>
+          <Card containerStyle={{ borderRadius: 10, backgroundColor: "#f3f4f6", marginBottom: isTablet?40:15 }}>
+            <View className="flex-row justify-between items-center">
+              <Text className={`font-semibold ${headerTextSize}`}>
                 Perks and Benefits
               </Text>
-              <Icon name="chevron-right" size={20} color="orange" />
+              <Icon name="chevron-right" size={isTablet?30:20} color="orange" />
             </View>
-            <Text style={{ fontSize: smallTextSize, color: "gray" }}>
+            <Text className={`text-gray-500 ${subHeaderTextSize}`}>
               Learn like a king
             </Text>
           </Card>
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Card
-            containerStyle={{
-              borderRadius: 10,
-              backgroundColor: "#f3f4f6",
-              marginBottom: 15,
-            }}
-          >
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Text style={{ fontSize: headerTextSize }}>
+          <Card containerStyle={{ borderRadius: 10, backgroundColor: "#f3f4f6", marginBottom: isTablet?40:15 }}>
+            <View className="flex-row justify-between items-center">
+              <Text className={`font-semibold ${headerTextSize}`}>
                 Help and Feedback
               </Text>
-              <Icon name="chevron-right" size={20} color="orange" />
+              <Icon name="chevron-right" size={isTablet?30:20} color="orange" />
             </View>
-            <Text style={{ fontSize: smallTextSize, color: "gray" }}>
+            <Text className={`text-gray-500 ${smallTextSize}`}>
               Ask for any query and support
             </Text>
           </Card>
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Card
-            containerStyle={{
-              borderRadius: 10,
-              backgroundColor: "#f3f4f6",
-              marginBottom: 15,
-            }}
-          >
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Text style={{ fontSize: headerTextSize }}>Profile Update</Text>
-              <Icon name="chevron-right" size={20} color="orange" />
+          <Card containerStyle={{ borderRadius: 10, backgroundColor: "#f3f4f6", marginBottom: isTablet?40:15 }}>
+            <View className="flex-row justify-between items-center">
+              <Text className={`font-semibold ${headerTextSize}`}>
+                Profile Update
+              </Text>
+              <Icon name="chevron-right" size={isTablet?30:20} color="orange" />
             </View>
-            <Text style={{ fontSize: smallTextSize, color: "gray" }}>
+            <Text className={`text-gray-500 ${smallTextSize}`}>
               Update your information
             </Text>
           </Card>
@@ -141,40 +90,16 @@ const ProfileModal = ({ isVisible, onClose, user }) => {
 
         {/* Logout Button */}
         <TouchableOpacity onPress={() => alert("Logout pressed!")}>
-          <View
-            style={{
-              backgroundColor: "red",
-              borderRadius: 10,
-              padding: 16,
-              alignItems: "center",
-              marginTop: 20,
-            }}
-          >
-            <Text
-              style={{
-                color: "white",
-                fontSize: headerTextSize,
-                fontWeight: "bold",
-              }}
-            >
+          <View className="bg-red-500 rounded-lg py-3 mt-5 items-center">
+            <Text className={`text-white font-bold ${headerTextSize}`}>
               Logout
             </Text>
           </View>
         </TouchableOpacity>
 
         {/* Terms and Conditions */}
-        <TouchableOpacity
-          onPress={() => alert("Terms and Conditions clicked!")}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-              color: "orange",
-              marginTop: 20,
-              fontSize: smallTextSize,
-              fontWeight: "bold",
-            }}
-          >
+        <TouchableOpacity onPress={() => alert("Terms and Conditions clicked!")}>
+          <Text className={`text-center text-orange-500 mt-5 ${subHeaderTextSize} font-bold`}>
             Terms and conditions
           </Text>
         </TouchableOpacity>
