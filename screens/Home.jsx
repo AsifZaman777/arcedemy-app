@@ -126,7 +126,7 @@ const Dashboard = () => {
           <Footer />
         </View>
 
-        <View style={{ marginBottom: isTablet ? 80 : 80 }}>
+        <View style={{ marginBottom: isTablet ? 80 : 100 }}>
         </View>
       </ScrollView>
 
@@ -147,7 +147,7 @@ const Home = () => {
 
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
+      screenOptions={({ route}) => ({
         tabBarIcon: ({ color, size }) => {
           let iconName;
 
@@ -161,6 +161,7 @@ const Home = () => {
 
           return <Icon name={iconName} size={isTablet ? 28 : size} color={color} />; // Adjust icon size for tablets
         },
+        
         tabBarActiveTintColor: "orange",
         tabBarInactiveTintColor: "gray",
         tabBarLabelStyle: {
@@ -169,7 +170,7 @@ const Home = () => {
         tabBarStyle: {
           backgroundColor: 'white',
           borderTopWidth: 0,
-          opacity: 0.98,
+          opacity: 0.95,
           elevation: 10,
           shadowColor: 'black',
           shadowOffset: { width: 0, height: 2 },
@@ -177,11 +178,11 @@ const Home = () => {
           shadowRadius: 8,
           height: isTablet ? (isAndroid ? 90 : 100) : (isAndroid ? 70 : 80), // Adjust height for Android/iOS
           borderRadius: 15,
-          marginHorizontal: 15,
+          marginHorizontal: isTablet ? 50 : 20,
           position: 'absolute',
           bottom: isAndroid ? 10 : 20, // Adjust bottom position for Android/iOS
           paddingBottom: (isAndroid ? 0 : 10), // Adjust bottom padding for iOS
-          paddingHorizontal: 10,
+          paddingHorizontal: 20,
         },
         tabBarItemStyle: {
           paddingVertical: isAndroid ? 10 : 5, // Slimmer padding for iOS
@@ -197,6 +198,7 @@ const Home = () => {
         component={Dashboard}
         options={{
           tabBarLabel: "Home",
+          headerShown: false,
         }}
       />
       <Tab.Screen
