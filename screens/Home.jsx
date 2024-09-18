@@ -15,29 +15,24 @@ import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Feather";
 import { Card } from "@rneui/themed";
 
-//assets
-import asif from "../assets/asif.png";
-
 //components
 import ProgressCard from "../components/HomeScreenComp/ProgressCard";
 import AnalyticsCard from "../components/HomeScreenComp/AnalyticsCard";
 import PanelOptionCard from "../components/HomeScreenComp/PanelOptionCard";
 import ProfileModal from "../components/HomeScreenComp/ProfileModal";
 
+//imports data
+import userData from "../data/userData";
+
 // Get screen dimensions
 const { width, height } = Dimensions.get("window");
 const isTablet = width >= 768;
 
 const Home = () => {
-  const [user, setUser] = useState({
-    name: "Asif Zaman",
-    curriculum: "Cambridge",
-    level: "A2",
-    avatar: asif,
-  });
+  const [user, setUser] = useState(userData[0]); //current user
 
   const [refreshing, setRefreshing] = useState(false);
-  const [isProfileModalVisible, setProfileModalVisible] = useState(false); // State for profile modal visibility
+  const [isProfileModalVisible, setProfileModalVisible] = useState(false); 
 
   const navigation = useNavigation();
 
@@ -60,6 +55,11 @@ const Home = () => {
   const toggleProfileModal = () => {
     setProfileModalVisible(!isProfileModalVisible);
   };
+
+  // Fetch avatar from the URL in userData.json
+  const avatarSource = user.avatar
+    ? { uri: user.avatar }
+    : null;
 
   return (
     <View className="flex-1 bg-slate-200">
@@ -84,9 +84,9 @@ const Home = () => {
         >
           <View className="flex-row items-center">
             <TouchableOpacity onPress={toggleProfileModal}>
-              {user.avatar ? (
+              {avatarSource ? (
                 <Image
-                  source={user.avatar}
+                  source={avatarSource}
                   style={{ width: avatarSize, height: avatarSize }}
                   className="rounded-full"
                 />
@@ -140,7 +140,7 @@ const Home = () => {
         </View>
 
         <View style={{ marginBottom: isTablet ? -80 : -20 }}>
-            <PanelOptionCard />
+          <PanelOptionCard />
         </View>
 
         <View style={{ marginBottom: isTablet ? 80 : 60 }}></View>

@@ -17,11 +17,14 @@ const responsiveBorderRadius = isTablet ? 50 : 25;
 const responsivePadding = isTablet ? "p-8" : "p-4";
 const responsiveMb = isTablet ? "mb-5" : "mb-5";
 
-
-
 const ProfileModal = ({ isVisible, onClose, user }) => {
   const navigation = useNavigation();
-  
+
+  // Ensure avatar is fetched correctly from the JSON data
+  const avatarSource = user.avatar
+    ? { uri: user.avatar }
+    : null;
+
   return (
     <Modal
       isVisible={isVisible}
@@ -30,14 +33,20 @@ const ProfileModal = ({ isVisible, onClose, user }) => {
       animationOut="slideOutDown"
     >
       <View className={`bg-white rounded-2xl shadow-lg ${responsivePadding}`}>
-        <View className={`flex-row justify-between items-center mb-5`}>
+        <View className={`flex-row justify-between items-center ${isTablet?'mb-10':'mb-5'}`}>
           <View className="flex-row items-center">
             <Image
-              source={user.avatar}
-              style={{ width: responsiveAvatarSize, height: responsiveAvatarSize, borderRadius: responsiveBorderRadius }}
+              source={avatarSource}
+              style={{
+                width: responsiveAvatarSize,
+                height: responsiveAvatarSize,
+                borderRadius: responsiveBorderRadius,
+              }}
             />
             <View className="ml-4">
-              <Text className={`font-bold ${headerTextSize}`}>{user.name}</Text>
+              <Text className={`font-bold ${headerTextSize}`}>
+                {user.name}
+              </Text>
               <Text className={`text-gray-500 ${subHeaderTextSize}`}>
                 {user.curriculum} | {user.level}
               </Text>
@@ -90,7 +99,10 @@ const ProfileModal = ({ isVisible, onClose, user }) => {
           </Card>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => alert("Logout pressed!")}>
+        <TouchableOpacity onPress={() => {
+          onClose();
+          navigation.navigate("");
+        }}>
           <View className="bg-red-500 rounded-lg py-3 mt-5 items-center">
             <Text className={`text-white font-bold ${headerTextSize}`}>
               Logout
