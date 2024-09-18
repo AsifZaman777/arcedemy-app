@@ -51,10 +51,11 @@ const Signin = () => {
 
   // Handle sign-in action
   const handleSignin = () => {
-    if (validateForm()) {
-      // Call the sign-in API or navigate to the Home screen
-      navigation.navigate("Home"); 
-    }
+    // if (validateForm()) {
+    //   // Call the sign-in API or navigate to the Home screen
+    //   navigation.navigate("Home"); 
+    // }
+    navigation.navigate("Home");
   };
 
   return (

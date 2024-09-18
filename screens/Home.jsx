@@ -23,6 +23,7 @@ import ProfileModal from "../components/HomeScreenComp/ProfileModal";
 
 //imports data
 import userData from "../data/userData";
+import Footer from "../components/HomeScreenComp/Footer";
 
 // Get screen dimensions
 const { width, height } = Dimensions.get("window");
@@ -139,11 +140,17 @@ const Home = () => {
           <AnalyticsCard />
         </View>
 
-        <View style={{ marginBottom: isTablet ? -80 : -20 }}>
+        <View style={{ marginBottom: isTablet ? 0 : 20 }}>
           <PanelOptionCard />
         </View>
 
-        <View style={{ marginBottom: isTablet ? 80 : 60 }}></View>
+        <View style={{ marginBottom: isTablet ? 80 : 20 }}>
+          <Footer />
+        </View>
+
+        <View style={{ marginBottom: isTablet ? 50 : 60 }}></View>
+
+        
       </ScrollView>
 
       {/* Profile Modal and prop drill */}
