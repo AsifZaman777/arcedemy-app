@@ -13,8 +13,6 @@ import Icon from "react-native-vector-icons/Feather"; // For icons if needed
 // assets
 import icon from "../assets/icon.png";
 
-// components
-import SigninButton from "../components/SigninScreenComp/SigninButton";
 
 const Signin = () => {
   const navigation = useNavigation();
