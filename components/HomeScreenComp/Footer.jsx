@@ -22,13 +22,13 @@ const Footer = () => {
   return (
     <Card
       containerStyle={{
-        borderRadius: 15,
-        elevation: 10, // Android shadow
+        borderRadius: 10,
+        elevation: 1, // Android shadow
         shadowColor: 'gray',
         shadowOffset: { width: 0, height: 2 }, // iOS shadow
-        shadowOpacity: 0.1,
+        shadowOpacity: 0,
         shadowRadius: 10,
-        padding: 10, 
+        padding: 20, 
       }}
     >
       <View
@@ -70,8 +70,9 @@ const Footer = () => {
         {/* Contact Information */}
         <View style={{ alignItems: 'center', marginBottom: isTablet ? 20 : 10 }}>
           <Text style={{ color: '#333', fontSize: isTablet ? 30 : 14, fontWeight: 'bold' }}>Contact Us</Text>
-          <Text style={{ color: '#555', fontSize: isTablet ? 24 : 12 }}>Email: support@app.com</Text>
-          <Text style={{ color: '#555', fontSize: isTablet ? 24 : 12 }}>Address: 123 App Street, Suite 100, City, Country</Text>
+          <Text style={{ color: '#555', fontSize: isTablet ? 24 : 12 }}>Email: arcedemy@gmail.com</Text>
+          <Text style={{ color: '#555', fontSize: isTablet ? 24 : 12 }}>Address: Mirpur 13, Block B, Dhaka, Bangladesh</Text>
+          <Text style={{ color: '#555', fontSize: isTablet ? 24 : 12, marginTop: isTablet?20:10, fontWeight: 'bold'}}>Developed by: Khair IT Solutions</Text>
         </View>
 
         {/* Social Media Links */}
