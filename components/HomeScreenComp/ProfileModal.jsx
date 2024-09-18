@@ -4,7 +4,6 @@ import { Card } from "@rneui/themed";
 import Modal from "react-native-modal";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
-import TermsAndCondition from "../../screens/TermsAndCondition";
 
 const { width } = Dimensions.get("window");
 const isTablet = width >= 768;

@@ -144,7 +144,7 @@ const TermsAndCondition = ({ navigation }) => {
         {/* Accept Button */}
         <View className="py-4">
           <TouchableOpacity
-            onPress={() => alert("You accepted the terms and conditions.")}
+            onPress={() => navigation.goBack()}
             className="bg-orange-500 py-3 mx-5 rounded-xl"
           >
             <Text className="text-white text-center text-lg font-bold">Accept</Text>

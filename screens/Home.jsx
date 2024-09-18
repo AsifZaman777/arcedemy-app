@@ -56,7 +56,7 @@ const Home = () => {
     setProfileModalVisible(!isProfileModalVisible);
   };
 
-  // Fetch avatar from the URL in userData.json
+//dynamic fetching of avatar from th ibb link
   const avatarSource = user.avatar
     ? { uri: user.avatar }
     : null;
