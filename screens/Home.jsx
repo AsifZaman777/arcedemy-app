@@ -206,6 +206,10 @@ const Home = () => {
         component={Courses}
         options={{
           tabBarLabel: "Courses",
+          headerTitleStyle: {
+            fontSize: isTablet ? 25 : 20, 
+            color: 'orange',
+          },
         }}
       />
       <Tab.Screen
@@ -213,6 +217,10 @@ const Home = () => {
         component={Profile}
         options={{
           tabBarLabel: "Profile",
+          headerTitleStyle: {
+            fontSize: isTablet ? 25 : 20, 
+            color: 'orange',
+          },
         }}
       />
     </Tab.Navigator>
